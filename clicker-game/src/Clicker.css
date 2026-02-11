@@ -1,0 +1,36 @@
+.counter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 100px;
+  user-select: none;
+
+}
+
+.counter {
+  padding-top: 50px;
+}
+
+.click-button {
+  background-color: rgb(0, 3, 196);
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.05s;
+}
+
+.click-button:hover {
+  background-color: rgb(0, 2, 139);
+}
+
+.click-button:active {
+  transform: scale(0.92);
+}
+
+.upgrade-container {
+  display: flex;
+  column-gap: 10px;
+}
