@@ -9,6 +9,16 @@
 
 .counter {
   padding-top: 50px;
+  position: relative;
+}
+
+.points-per-second {
+  font-size: 20px;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 
 .click-button {

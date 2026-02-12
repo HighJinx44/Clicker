@@ -6,7 +6,9 @@ import './App.css';
 function App() {
   const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 0);
   const [stats, setStats] = useState({
-    increment: 1
+    increment: 1,
+    generatePoints: false,
+    generatePointsPercent: 50
   });
 
   useEffect(() => {

@@ -1,59 +1,124 @@
-import './Upgrades.css';
-import { defaultUpgrades, upgradeDetails } from '../upgrades';
-import { useState, useEffect } from 'react';
+import "./Upgrades.css";
+import { defaultUpgrades, upgradeDetails } from "../upgrades";
+import { useState, useEffect } from "react";
 
-export function Upgrades({ counter, setCounter, stats, setStats }) {
-  const [upgrades, setUpgrades] = useState(JSON.parse(localStorage.getItem('upgrades')) || defaultUpgrades);
+export function Upgrades({ counter, setCounter, setStats }) {
+  const [upgrades, setUpgrades] = useState(
+    JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
+  );
+  const [upgradeInfo, setUpgradeInfo] = useState({
+    U1: {
+      increment: {
+        amount: 0,
+        multiplier: 1,
+      },
+    },
+    U3: {
+      incrementMultiplier: 1,
+    },
+  });
 
   function handlePurchase(id) {
-    const upgrade = upgrades.find(u => u.id === id);
+    const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgrade.price) return;
-    setCounter(prev => prev - upgrade.price);
-    setUpgrades(previousUpgrades => {
-      return previousUpgrades.map(previousUpgrade => {
+    setCounter((prev) => prev - upgrade.price);
+    setUpgrades((previousUpgrades) => {
+      return previousUpgrades.map((previousUpgrade) => {
         if (previousUpgrade.id !== id) return previousUpgrade;
         return {
           id: previousUpgrade.id,
-          level: previousUpgrade.level+1,
-          price: Math.round(upgradeDetails[previousUpgrade.id].priceFunction(previousUpgrade.price))
+          level: previousUpgrade.level + 1,
+          price: Math.round(
+            upgradeDetails[previousUpgrade.id].priceFunction(
+              previousUpgrade.price,
+            ),
+          ),
         };
       });
     });
-
   }
 
   useEffect(() => {
-    
     const newStats = {
-      increment: 1
+      increment: 1,
+      generatePoints: false,
+      generatePointsPercent: 50
     };
-    
-    upgrades.forEach(upgrade => {
-      upgradeDetails[upgrade.id].effect(newStats, upgrade.level);
+
+    //Calculate the base amount that the first upgrade would add to the increment
+    //Do the maths from future upgrades
+    //Add up all the upgrades that have an increment bonus and make that the final increment
+
+    //Base increment for upgrade 1 is ALWAYS going to be 1, no need to save that
+    //Calculate the amount by which upgrade 1 increases the increment factoring in other upgrades
+
+    //IMPORTANT: HOW EACH UPGRADE AFFECTS OTHER UPGRADES SHOULD ONLY BE CALCULATED OUT HERE
+
+    //A multiplier can be stored in each object that has an increment increase, and multipliers from future upgrades can be added to that multiplier
+    //E.G: U2 provides a multiplier for ONLY U1, whereas U3 could provide a multiplier to the whole increment.
+    //Therefore, the multiplier in U1 would increase based on U2, and then the general multiplier would be applied to the final increment
+
+    //Upgrades that only provide one thing (E.G: If U3 were to start generating points) can be put as their own things in newUpgradeInfo
+
+    const newUpgradeInfo = {
+      generatePoints: false,
+      U1: {
+        increment: {
+          amount: 0,
+          multiplier: 1,
+        },
+      },
+    };
+
+    upgrades.forEach((upgrade) => {
+      upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
     });
+
+    for (const key in newUpgradeInfo) {
+      const upgradeInfoItem = newUpgradeInfo[key];
+      if (upgradeInfoItem.increment !== undefined) {
+        newStats.increment +=
+          upgradeInfoItem.increment.amount *
+          upgradeInfoItem.increment.multiplier;
+      }
+    }
+
+    setUpgradeInfo(newUpgradeInfo);
     setStats(newStats);
   }, [upgrades, setStats]);
 
   useEffect(() => {
-    localStorage.setItem('upgrades', JSON.stringify(upgrades));
+    localStorage.setItem("upgrades", JSON.stringify(upgrades));
   }, [upgrades]);
 
   return (
     <div className="upgrade-outer-container">
-      {upgrades.map(upgrade => {
+      {upgrades.map((upgrade) => {
         const id = upgrade.id;
         return (
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
-              {typeof (upgradeDetails[id].description) === 'function' ? upgradeDetails[id].description(stats) : upgradeDetails[id].description }
+              {typeof upgradeDetails[id].description === "function"
+                ? upgradeDetails[id].description(upgradeInfo)
+                : upgradeDetails[id].description}
             </div>
 
-            <button className={counter >= upgrade.price ? "upgrade-button buyable" : "upgrade-button"} onClick={() => {handlePurchase(id)}}>
+            <button
+              className={
+                counter >= upgrade.price
+                  ? "upgrade-button buyable"
+                  : "upgrade-button"
+              }
+              onClick={() => {
+                handlePurchase(id);
+              }}
+            >
               Purchase
             </button>
 
             <div className="upgrade-count">
-              <div>{upgrade.level}/100</div>
+              <div>{upgrade.level}/{upgrade.maxLevel}</div>
+              <div className="upgrade-number">#{upgrades.indexOf(upgrade) + 1}</div>
               <div>{upgrade.price}</div>
             </div>
           </div>
@@ -62,5 +127,3 @@ export function Upgrades({ counter, setCounter, stats, setStats }) {
     </div>
   );
 }
-
-
