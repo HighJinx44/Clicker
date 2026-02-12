@@ -1,30 +1,28 @@
-import format from "./src/utils/formatNumber";
-
 export const defaultUpgrades = [
   {
     id: 'upgrade_1',
     level: 0,
-    price: 1
+    price: 10
   },
   {
     id: 'upgrade_2',
     level: 0,
-    price: 5
+    price: 50
   },
   {
     id: 'upgrade_3',
     level: 0,
-    price: 40
+    price: 400
   }
 ];
 
 export const upgradeDetails = {
   upgrade_1: {
     description(stats) {
-      return `Increase increment by 0.1`;
+      return `Increase increment by 1`;
     },
     effect(stats, level) {
-      stats.increment += level*0.1;
+      stats.increment += level;
     },
     priceFunction(price) {
       price += 1;

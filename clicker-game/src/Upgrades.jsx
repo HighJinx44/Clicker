@@ -1,7 +1,6 @@
 import './Upgrades.css';
 import { defaultUpgrades, upgradeDetails } from '../upgrades';
 import { useState, useEffect } from 'react';
-import format from './utils/formatNumber';
 
 export function Upgrades({ counter, setCounter, stats, setStats }) {
   const [upgrades, setUpgrades] = useState(JSON.parse(localStorage.getItem('upgrades')) || defaultUpgrades);
@@ -16,7 +15,7 @@ export function Upgrades({ counter, setCounter, stats, setStats }) {
         return {
           id: previousUpgrade.id,
           level: previousUpgrade.level+1,
-          price: format(upgradeDetails[previousUpgrade.id].priceFunction(previousUpgrade.price))
+          price: Math.round(upgradeDetails[previousUpgrade.id].priceFunction(previousUpgrade.price))
         };
       });
     });
