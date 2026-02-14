@@ -26,14 +26,27 @@
 }
 
 .upgrade-desc-container {
-  padding: 10px;
+  padding: 5px 10px;
   border-radius: 20px;
   height: 50%;
   background-color: rgb(0, 92, 0);
   text-align: center;
   color: rgb(255, 255, 255);
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.upgrade-count-container {
+  color: rgb(190, 190, 190);
+  border-bottom: 2px rgb(0, 58, 0) solid;
+}
+
+.upgrade-desc {
   overflow: auto;
   scrollbar-width: none;
+  padding-top: 2px;
 }
 
 .upgrade-button {
@@ -51,8 +64,14 @@
   background-color: rgb(0, 153, 0);
 }
 
+.upgrade-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgb(73, 73, 73);
+}
+
 .upgrade-button:active {
   transform: scale(0.95);
+  box-shadow: none;
 }
 
 .upgrade-count {
@@ -62,8 +81,4 @@
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
-}
-
-.upgrade-number {
-  color: lightblue;
 }

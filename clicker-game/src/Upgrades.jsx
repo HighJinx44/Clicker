@@ -21,6 +21,7 @@ export function Upgrades({ counter, setCounter, setStats }) {
   function handlePurchase(id) {
     const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgrade.price) return;
+    if (upgradeDetails[id].maxLevel <= upgrade.level) return;
     setCounter((prev) => prev - upgrade.price);
     setUpgrades((previousUpgrades) => {
       return previousUpgrades.map((previousUpgrade) => {
@@ -60,6 +61,8 @@ export function Upgrades({ counter, setCounter, setStats }) {
 
     //Upgrades that only provide one thing (E.G: If U3 were to start generating points) can be put as their own things in newUpgradeInfo
 
+
+    //Don't save price, instead generate the price on load and keep reloading it when a new upgrade is purchased.
     const newUpgradeInfo = {
       generatePoints: false,
       U1: {
@@ -71,15 +74,21 @@ export function Upgrades({ counter, setCounter, setStats }) {
     };
 
     upgrades.forEach((upgrade) => {
-      upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
+      if (upgrade.level > 0) {
+        upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
+      }
     });
 
     for (const key in newUpgradeInfo) {
       const upgradeInfoItem = newUpgradeInfo[key];
-      if (upgradeInfoItem.increment !== undefined) {
+      if (upgradeInfoItem.increment) {
         newStats.increment +=
           upgradeInfoItem.increment.amount *
           upgradeInfoItem.increment.multiplier;
+      }
+
+      if (newStats[key] !== undefined) {
+        newStats[key] = upgradeInfoItem;
       }
     }
 
@@ -98,9 +107,12 @@ export function Upgrades({ counter, setCounter, setStats }) {
         return (
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
+              <div className="upgrade-count-container">#{upgrades.indexOf(upgrade) + 1}</div>
+              <div className="upgrade-desc">
               {typeof upgradeDetails[id].description === "function"
                 ? upgradeDetails[id].description(upgradeInfo)
                 : upgradeDetails[id].description}
+              </div>
             </div>
 
             <button
@@ -117,9 +129,8 @@ export function Upgrades({ counter, setCounter, setStats }) {
             </button>
 
             <div className="upgrade-count">
-              <div>{upgrade.level}/{upgrade.maxLevel}</div>
-              <div className="upgrade-number">#{upgrades.indexOf(upgrade) + 1}</div>
-              <div>{upgrade.price}</div>
+              <div>{upgrade.level}/{upgradeDetails[id].maxLevel}</div>
+              <div>{upgradeDetails[id].maxLevel > upgrade.level ? upgrade.price : 'Maxed'}</div>
             </div>
           </div>
         );
