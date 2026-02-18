@@ -1,10 +1,11 @@
 import './App.css'
+import { Tabs } from './tabs'
 
 function App() {
 
   return (
     <>
-      Hello
+      <Tabs />
     </>
   )
 }
