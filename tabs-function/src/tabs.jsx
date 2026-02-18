@@ -1,5 +1,5 @@
 import "./tabs.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const initialTabs = [
   {
@@ -81,13 +81,7 @@ function FifthTab() {
 
 export function Tabs() {
   const [tabs, setTabs] = useState(initialTabs);
-  const [currentTab, setCurrentTab] = useState();
-
-  useEffect(() => {
-    const activeTab = tabs.find(tab => tab.active);
-    console.log(activeTab);
-    if (activeTab !== undefined) setCurrentTab(activeTab.content);
-  }, [tabs])
+  const activeTab = tabs.find(tab => tab.active);
 
   return (
     <>
@@ -114,7 +108,7 @@ export function Tabs() {
           })}
         </div>
         <div className="tab-content-container">
-          {currentTab}
+          {activeTab && <activeTab.content />}
         </div>
       </div>
     </>
