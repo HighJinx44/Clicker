@@ -2,7 +2,7 @@ import "./Upgrades.css";
 import { defaultUpgrades, upgradeDetails } from "../upgrades";
 import { useState, useEffect } from "react";
 
-export function Upgrades({ counter, setCounter, setStats }) {
+export function FirstUpgrades({ counter, setCounter, setStats }) {
   const [upgrades, setUpgrades] = useState(
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
@@ -101,7 +101,7 @@ export function Upgrades({ counter, setCounter, setStats }) {
   }, [upgrades]);
 
   return (
-    <div className="upgrade-outer-container">
+    <>
       {upgrades.map((upgrade) => {
         const id = upgrade.id;
         return (
@@ -135,6 +135,6 @@ export function Upgrades({ counter, setCounter, setStats }) {
           </div>
         );
       })}
-    </div>
+    </>
   );
 }

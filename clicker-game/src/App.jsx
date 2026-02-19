@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Clicker } from './Clicker';
-import { Upgrades } from './Upgrades';
+import { FirstUpgrades } from './Upgrades';
+import './App.css';
+import { Tabs } from './tabs';
 import './App.css';
 
 function App() {
@@ -22,12 +24,7 @@ function App() {
       setCounter={setCounter} 
       stats={stats}
       />
-      <Upgrades 
-      counter={counter}
-      setCounter={setCounter}
-      stats={stats}
-      setStats={setStats}
-      />
+      <Tabs counter={counter} setCounter={setCounter} setStats={setStats}/>
     </>
   )
 }

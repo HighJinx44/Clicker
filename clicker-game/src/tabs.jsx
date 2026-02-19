@@ -1,10 +1,11 @@
 import "./tabs.css";
 import { useState } from "react";
+import { FirstUpgrades } from "./Upgrades";
 
 const initialTabs = [
   {
     title: "First",
-    content: FirstTab,
+    content: FirstUpgrades,
     active: false,
   },
   {
@@ -79,7 +80,7 @@ function FifthTab() {
   );
 }
 
-export function Tabs() {
+export function Tabs({ counter, setCounter, setStats }) {
   const [tabs, setTabs] = useState(initialTabs);
   const activeTab = tabs.find(tab => tab.active);
 
@@ -108,7 +109,7 @@ export function Tabs() {
           })}
         </div>
         <div className="tab-content-container">
-          {activeTab && <activeTab.content />}
+          {activeTab && <activeTab.content counter={counter} setCounter={setCounter} setStats={setStats}/>}
         </div>
       </div>
     </>

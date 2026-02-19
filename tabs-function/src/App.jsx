@@ -1,5 +1,5 @@
 import './App.css'
-import { Tabs } from './tabs'
+import { Tabs } from '../../clicker-game/src/tabs'
 
 function App() {
 

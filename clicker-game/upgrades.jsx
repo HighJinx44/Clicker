@@ -13,12 +13,17 @@ export const defaultUpgrades = [
     id: 'upgrade_3',
     level: 0,
     price: 8000
+  },
+  {
+    id: 'upgrade_3',
+    level: 0,
+    price: 8000
   }
 ];
 
 export const upgradeDetails = {
   upgrade_1: {
-    maxLevel: 3,
+    maxLevel: 10,
     description(info) {
       return `Increase increment by ${info.U1.increment.multiplier}`;
     },
@@ -42,6 +47,17 @@ export const upgradeDetails = {
     }
   },
   upgrade_3: {
+    maxLevel: 1,
+    description: 'Start generating 50% of your increment per second',
+    effect(upgradeInfo) {
+      upgradeInfo.generatePoints = true;
+    },
+    priceFunction(price) {
+      price *= 2;
+      return price;
+    }
+  },
+  upgrade_4: {
     maxLevel: 1,
     description: 'Start generating 50% of your increment per second',
     effect(upgradeInfo) {
