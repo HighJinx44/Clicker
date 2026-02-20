@@ -15,7 +15,7 @@ export const defaultUpgrades = [
     price: 8000
   },
   {
-    id: 'upgrade_3',
+    id: 'upgrade_4',
     level: 0,
     price: 8000
   }

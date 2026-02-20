@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Clicker } from './Clicker';
-import { FirstUpgrades } from './Upgrades';
 import './App.css';
 import { Tabs } from './tabs';
 import './App.css';
@@ -16,6 +15,16 @@ function App() {
   useEffect(() => {
     localStorage.setItem('amount', counter);
   }, [counter]);
+
+  useEffect(() => {
+    if (stats.generatePoints) {
+      const generatePointsTimer = setInterval(() => {
+        setCounter(prev => prev + stats.increment/(100/stats.generatePointsPercent))
+      }, 1000);
+      return () => clearInterval(generatePointsTimer);
+    }
+
+  }, [stats.generatePoints, stats.generatePointsPercent, stats.increment]);
 
   return (
     <>
