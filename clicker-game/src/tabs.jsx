@@ -85,7 +85,7 @@ export function Tabs({ counter, setCounter, setStats }) {
     const newStats = {
       increment: 1,
       generatePoints: false,
-      generatePointsPercent: 50,
+      generatePointsPercent: 100,
     };
 
     const newUpgradeInfo = {

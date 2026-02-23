@@ -1,30 +1,40 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Clicker } from './Clicker';
 import './App.css';
 import { Tabs } from './tabs';
 import './App.css';
 
 function App() {
-  const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 0);
+  const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 8000);
   const [stats, setStats] = useState({
     increment: 1,
     generatePoints: false,
-    generatePointsPercent: 50
+    generatePointsPercent: 100
   });
+  
+  const incrementRef = useRef(stats.increment);
+  const generatePointsRef = useRef(stats.generatePoints);
+  const generatePointsPercentRef = useRef(stats.generatePointsPercent);
+
 
   useEffect(() => {
     localStorage.setItem('amount', counter);
   }, [counter]);
 
   useEffect(() => {
-    if (stats.generatePoints) {
-      const generatePointsTimer = setInterval(() => {
-        setCounter(prev => prev + stats.increment/(100/stats.generatePointsPercent))
-      }, 1000);
-      return () => clearInterval(generatePointsTimer);
-    }
+    incrementRef.current = stats.increment;
+    generatePointsRef.current = stats.generatePoints;
+    generatePointsPercentRef.current = stats.generatePointsPercent;
+  }, [stats]);
 
-  }, [stats.generatePoints, stats.generatePointsPercent, stats.increment]);
+  useEffect(() => {
+    const generatePointsTimer = setInterval(() => {
+      if (!generatePointsRef.current) return;
+
+      setCounter(prev => prev + incrementRef.current/(100/generatePointsPercentRef.current))
+    }, 1000);
+    return () => clearInterval(generatePointsTimer);
+  }, []);
 
   return (
     <>

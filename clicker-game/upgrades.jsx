@@ -48,12 +48,11 @@ export const upgradeDetails = {
   },
   upgrade_3: {
     maxLevel: 1,
-    description: 'Start generating 50% of your increment per second',
+    description: 'Start generating 100% of your increment per second',
     effect(upgradeInfo) {
       upgradeInfo.generatePoints = true;
     },
     priceFunction(price) {
-      price *= 2;
       return price;
     }
   },
