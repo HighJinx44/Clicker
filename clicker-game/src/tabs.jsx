@@ -1,4 +1,4 @@
-import "./Tabs.css";
+import "./tabs.css";
 import { useState, useEffect } from "react";
 import { FirstUpgrades } from "./Upgrades";
 import { defaultUpgrades, upgradeDetails } from "../upgrades";

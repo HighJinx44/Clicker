@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Clicker } from './Clicker';
 import './App.css';
-import { Tabs } from './Tabs';
+import { Tabs } from './tabs';
 import './App.css';
 
 function App() {
