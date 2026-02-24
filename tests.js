@@ -30,5 +30,3 @@ const upgradeDetails = {
     some: 'thing3'
   },
 };
-
-console.log(upgradeDetails[defaultUpgrades[0].id]);

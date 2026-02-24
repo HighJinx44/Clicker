@@ -7,7 +7,6 @@ export function FirstUpgrades({
   upgradeInfo,
   handlePurchase,
 }) {
-
   return (
     <>
       {upgrades.map((upgrade) => {
@@ -27,9 +26,11 @@ export function FirstUpgrades({
 
             <button
               className={
-                counter >= upgrade.price
-                  ? "upgrade-button buyable"
-                  : "upgrade-button"
+                upgrade.level < upgradeDetails[id].maxLevel
+                  ? counter >= upgrade.price
+                    ? "upgrade-button buyable"
+                    : "upgrade-button"
+                  : "upgrade-button maxed"
               }
               onClick={() => {
                 handlePurchase(id);

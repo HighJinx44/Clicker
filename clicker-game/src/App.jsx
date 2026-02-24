@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Clicker } from './Clicker';
 import './App.css';
-import { Tabs } from './tabs';
+import { Tabs } from './Tabs';
 import './App.css';
 
 function App() {
@@ -31,8 +31,8 @@ function App() {
     const generatePointsTimer = setInterval(() => {
       if (!generatePointsRef.current) return;
 
-      setCounter(prev => prev + incrementRef.current/(100/generatePointsPercentRef.current))
-    }, 1000);
+      setCounter(prev => prev + (incrementRef.current/(100/generatePointsPercentRef.current))/10)
+    }, 100);
     return () => clearInterval(generatePointsTimer);
   }, []);
 

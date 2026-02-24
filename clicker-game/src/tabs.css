@@ -10,16 +10,18 @@
 
 .tab-selector-container {
   height: 75px;
+  width: 100%;
   border-bottom: 5px solid black;
   align-items: end;
   overflow-y: hidden;
   display: flex;
   gap: 10px;
+  justify-content: space-around;
 }
 
 .tab-selector {
   height: 50px;
-  width: 80px;
+  flex: 1;
   background-color: rgb(1, 202, 1);
   transition: 0.5s ease;
   cursor: pointer;
@@ -34,7 +36,7 @@
 
 .tab-selector:not(.selected-tab):hover {
   height: 60px;
-  width: 90px;
+  flex-grow: 1.2;
 }
 
 .selected-tab {

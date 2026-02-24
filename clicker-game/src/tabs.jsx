@@ -1,7 +1,8 @@
-import "./tabs.css";
+import "./Tabs.css";
 import { useState, useEffect } from "react";
 import { FirstUpgrades } from "./Upgrades";
 import { defaultUpgrades, upgradeDetails } from "../upgrades";
+import format from "./utils/formatNumber";
 
 const initialTabs = [
   {
@@ -132,11 +133,7 @@ export function Tabs({ counter, setCounter, setStats }) {
         return {
           id: previousUpgrade.id,
           level: previousUpgrade.level + 1,
-          price: Math.round(
-            upgradeDetails[previousUpgrade.id].priceFunction(
-              previousUpgrade.price,
-            ),
-          ),
+          price: format((upgradeDetails[previousUpgrade.id].priceFunction(previousUpgrade.price))),
         };
       });
     });

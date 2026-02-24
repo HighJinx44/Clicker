@@ -1,11 +1,12 @@
 import "./Clicker.css";
+import format from "./utils/formatNumber";
 
 export function Clicker({ counter, setCounter, stats }) {
   function incrementCounter() {
-    setCounter(Math.round(counter + stats.increment));
+    setCounter(prev => prev + stats.increment);
     localStorage.setItem(
       "amount",
-      JSON.stringify(Math.round(counter + stats.increment)),
+      JSON.stringify(counter + stats.increment),
     );
   }
 
@@ -14,11 +15,11 @@ export function Clicker({ counter, setCounter, stats }) {
       <div className="counter-container">
         <div className="counter">
           {stats.generatePoints ? <div className="points-per-second">
-            {Math.round((stats.increment/100)*stats.generatePointsPercent)} P/s
+            {format((stats.increment/100)*stats.generatePointsPercent)} P/s
           </div> : ''}
-          {Math.round(counter)}</div>
+          {format(counter)}</div>
         <button onClick={incrementCounter} className="click-button">
-          +{Math.round(stats.increment)}
+          +{format(stats.increment)}
         </button>
       </div>
     </>
