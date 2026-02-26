@@ -23,7 +23,7 @@ export const upgradeDetails = {
       return `Increase increment by ${info.increment.U1.multiplier}`;
     },
     effect(upgradeInfo, level) {
-      upgradeInfo.increment.U1.amount = level;
+      upgradeInfo.increment.U1.amount += level;
     },
     priceFunction(level) {
       return this.basePrice*Math.pow(1.5, level);
@@ -56,12 +56,12 @@ export const upgradeDetails = {
   upgrade_4: {
     description: "Increase #1's max level by 5",
     effect(upgradeInfo, level) {
-      upgradeInfo.U4.increaseMaxLevel.levelAmount += 5*level;
+      upgradeInfo.increaseMaxLevel.upgrade_1 += 5*level;
     },
-    priceFunction() {
-      return this.basePrice;
+    priceFunction(level) {
+      return this.basePrice*Math.pow(2.5, level);
     },
-    basePrice: 8000,
-    baseMaxLevel: 1
+    basePrice: 3000,
+    baseMaxLevel: 6
   }
 };

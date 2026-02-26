@@ -67,7 +67,7 @@ export function Tabs({ counter, setCounter, setStats }) {
   function handlePurchase(id) {
     const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgradeDetails[id].priceFunction(upgrade.level)) return;
-    if (upgradeDetails[id].baseMaxLevel <= upgrade.level) return;
+    if (upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) <= upgrade.level) return;
     setCounter(
       (prev) => prev - upgradeDetails[id].priceFunction(upgrade.level),
     );
@@ -90,8 +90,9 @@ export function Tabs({ counter, setCounter, setStats }) {
   );
 
   const [upgradeInfo, setUpgradeInfo] = useState({
-    U1: {
-      increment: {
+    generatePoints: false,
+    increment: {
+      U1: {
         amount: 0,
         multiplier: 1,
       },
@@ -119,18 +120,9 @@ export function Tabs({ counter, setCounter, setStats }) {
           multiplier: 1,
         },
       },
-      U1: {
-        increment: {
-          amount: 0,
-          multiplier: 1,
-        },
-      },
-      U4: {
-        increaseMaxLevel: {
-          upgradeNumber: 1,
-          levelAmount: 0,
-        },
-      },
+      increaseMaxLevel: {
+        upgrade_1: 0,
+      }
     };
 
     upgrades.forEach((upgrade) => {

@@ -13,7 +13,7 @@ export function FirstUpgrades({
       {upgrades.map((upgrade) => {
         const id = upgrade.id;
         return (
-          upgradeDetails[id].baseMaxLevel > upgrade.level ?
+          upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level ?
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
               <div className="upgrade-count-container">
@@ -41,10 +41,10 @@ export function FirstUpgrades({
 
             <div className="upgrade-count">
               <div>
-                {upgrade.level}/{upgradeDetails[id].baseMaxLevel}
+                {upgrade.level}/{upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0)}
               </div>
               <div>
-                {upgradeDetails[id].baseMaxLevel > upgrade.level
+                {upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level
                   ? format(upgradeDetails[id].priceFunction(upgrade.level))
                   : "Maxed"}
               </div>
