@@ -12,6 +12,7 @@ export function FirstUpgrades({
     <>
       {upgrades.map((upgrade) => {
         const id = upgrade.id;
+        if (counter < (3*upgradeDetails[id].priceFunction(upgrade.level))/4 && upgrade.level === 0) return;
         return (
           upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level ?
           <div key={id} className="upgrade-container">

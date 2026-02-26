@@ -63,11 +63,30 @@ function FifthTab() {
   );
 }
 
+const defaultUpgradeInfo = {
+  generatePoints: false,
+  incrementMultiplier: 1,
+  increment: {
+    U1: {
+      amount: 0,
+      multiplier: 1,
+    },
+  },
+  increaseMaxLevel: {
+    upgrade_1: 0,
+  },
+};
+
 export function Tabs({ counter, setCounter, setStats }) {
   function handlePurchase(id) {
     const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgradeDetails[id].priceFunction(upgrade.level)) return;
-    if (upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) <= upgrade.level) return;
+    if (
+      upgradeDetails[id].baseMaxLevel +
+        (upgradeInfo.increaseMaxLevel[id] ?? 0) <=
+      upgrade.level
+    )
+      return;
     setCounter(
       (prev) => prev - upgradeDetails[id].priceFunction(upgrade.level),
     );
@@ -89,21 +108,7 @@ export function Tabs({ counter, setCounter, setStats }) {
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
 
-  const [upgradeInfo, setUpgradeInfo] = useState({
-    generatePoints: false,
-    increment: {
-      U1: {
-        amount: 0,
-        multiplier: 1,
-      },
-    },
-    U4: {
-      increaseMaxLevel: {
-        upgradeNumber: 1,
-        levelAmount: 0,
-      },
-    },
-  });
+  const [upgradeInfo, setUpgradeInfo] = useState({...defaultUpgradeInfo});
 
   useEffect(() => {
     const newStats = {
@@ -112,19 +117,8 @@ export function Tabs({ counter, setCounter, setStats }) {
       generatePointsPercent: 100,
     };
 
-    const newUpgradeInfo = {
-      generatePoints: false,
-      increment: {
-        U1: {
-          amount: 0,
-          multiplier: 1,
-        },
-      },
-      increaseMaxLevel: {
-        upgrade_1: 0,
-      }
-    };
-
+    const newUpgradeInfo = {...defaultUpgradeInfo};
+    
     upgrades.forEach((upgrade) => {
       if (upgrade.level > 0) {
         upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
@@ -142,6 +136,7 @@ export function Tabs({ counter, setCounter, setStats }) {
               incrementUpgradeInfoItem.amount *
               incrementUpgradeInfoItem.multiplier;
           }
+          newStats.increment *= newUpgradeInfo.incrementMultiplier;
         } else {
           newStats[key] = upgradeInfoItem;
         }
