@@ -2,7 +2,6 @@ import "./tabs.css";
 import { useState, useEffect } from "react";
 import { FirstUpgrades } from "./Upgrades";
 import { defaultUpgrades, upgradeDetails } from "../upgrades";
-import format from "./utils/formatNumber";
 
 const initialTabs = [
   {
@@ -65,12 +64,29 @@ function FifthTab() {
 }
 
 export function Tabs({ counter, setCounter, setStats }) {
+  function handlePurchase(id) {
+    const upgrade = upgrades.find((u) => u.id === id);
+    if (counter < upgradeDetails[id].priceFunction(upgrade.level)) return;
+    if (upgradeDetails[id].baseMaxLevel <= upgrade.level) return;
+    setCounter((prev) => prev - upgradeDetails[id].priceFunction(upgrade.level));
+    setUpgrades((previousUpgrades) => {
+      return previousUpgrades.map((previousUpgrade) => {
+        if (previousUpgrade.id !== id) return previousUpgrade;
+        return {
+          id: previousUpgrade.id,
+          level: previousUpgrade.level + 1
+        };
+      });
+    });
+  }
+  
   const [tabs, setTabs] = useState(initialTabs);
   const activeTab = tabs.find((tab) => tab.active);
+
   const [upgrades, setUpgrades] = useState(
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
-
+  
   const [upgradeInfo, setUpgradeInfo] = useState({
     U1: {
       increment: {
@@ -78,10 +94,14 @@ export function Tabs({ counter, setCounter, setStats }) {
         multiplier: 1,
       },
     },
-    U3: {
-      incrementMultiplier: 1,
-    },
+    U4: {
+      increaseMaxLevel: {
+        upgradeNumber: 1,
+        levelAmount: 0
+      }
+    }
   });
+  
   useEffect(() => {
     const newStats = {
       increment: 1,
@@ -97,6 +117,12 @@ export function Tabs({ counter, setCounter, setStats }) {
           multiplier: 1,
         },
       },
+      U4: {
+        increaseMaxLevel: {
+          upgradeNumber: 1,
+          levelAmount: 0
+        }
+      }
     };
 
     upgrades.forEach((upgrade) => {
@@ -121,36 +147,6 @@ export function Tabs({ counter, setCounter, setStats }) {
     setUpgradeInfo(newUpgradeInfo);
     setStats(newStats);
   }, [upgrades, setStats]);
-
-  function handlePurchase(id) {
-    const upgrade = upgrades.find((u) => u.id === id);
-    if (counter < upgrade.price) return;
-    if (upgradeDetails[id].maxLevel <= upgrade.level) return;
-    setCounter((prev) => prev - upgrade.price);
-    setUpgrades((previousUpgrades) => {
-      return previousUpgrades.map((previousUpgrade) => {
-        if (previousUpgrade.id !== id) return previousUpgrade;
-        return {
-          id: previousUpgrade.id,
-          level: previousUpgrade.level + 1,
-          price: format((upgradeDetails[previousUpgrade.id].priceFunction(previousUpgrade.price))),
-        };
-      });
-    });
-  }
-  /*
-  ISSUE: Currently, the first upgrade tab is the only tab that has upgrades.
-  When the user opens the website, the upgrades should load from out here,
-  so that the user doesn't have to open the first tab to load the upgrades that the first tab provides.
-  This would also fix this issue for the future upgrade tabs.
-
-  Steps to take:
-  - Find how the upgrades are loaded, and pull that functionality out to this.
-  - Make sure this remains compatible with the first upgrades tab, and every tab after that.
-
-  - Potentially add a useEffect that loads all the upgrades the first time, with something like an empty array,
-  or have a dependency 'upgrades' so that every time upgrades changes, it all re-calculates and renders.
-  */
 
   useEffect(() => {
     localStorage.setItem("upgrades", JSON.stringify(upgrades));

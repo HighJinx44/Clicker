@@ -1,5 +1,6 @@
 import "./Upgrades.css";
 import { upgradeDetails } from "../upgrades";
+import format from "./utils/formatNumber";
 
 export function FirstUpgrades({
   counter,
@@ -12,6 +13,7 @@ export function FirstUpgrades({
       {upgrades.map((upgrade) => {
         const id = upgrade.id;
         return (
+          upgradeDetails[id].baseMaxLevel > upgrade.level ?
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
               <div className="upgrade-count-container">
@@ -26,11 +28,9 @@ export function FirstUpgrades({
 
             <button
               className={
-                upgrade.level < upgradeDetails[id].maxLevel
-                  ? counter >= upgrade.price
-                    ? "upgrade-button buyable"
-                    : "upgrade-button"
-                  : "upgrade-button maxed"
+                counter >= upgradeDetails[id].priceFunction(upgrade.level)
+                  ? "upgrade-button buyable"
+                  : "upgrade-button"
               }
               onClick={() => {
                 handlePurchase(id);
@@ -41,15 +41,16 @@ export function FirstUpgrades({
 
             <div className="upgrade-count">
               <div>
-                {upgrade.level}/{upgradeDetails[id].maxLevel}
+                {upgrade.level}/{upgradeDetails[id].baseMaxLevel}
               </div>
               <div>
-                {upgradeDetails[id].maxLevel > upgrade.level
-                  ? upgrade.price
+                {upgradeDetails[id].baseMaxLevel > upgrade.level
+                  ? format(upgradeDetails[id].priceFunction(upgrade.level))
                   : "Maxed"}
               </div>
             </div>
           </div>
+          : ''
         );
       })}
     </>

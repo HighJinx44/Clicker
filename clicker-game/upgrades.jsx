@@ -1,70 +1,69 @@
 export const defaultUpgrades = [
   {
     id: 'upgrade_1',
-    level: 0,
-    price: 10
+    level: 0
   },
   {
     id: 'upgrade_2',
-    level: 0,
-    price: 500
+    level: 0
   },
   {
     id: 'upgrade_3',
-    level: 0,
-    price: 8000
+    level: 0
   },
   {
     id: 'upgrade_4',
-    level: 0,
-    price: 8000
+    level: 0
   }
 ];
 
 export const upgradeDetails = {
   upgrade_1: {
-    maxLevel: 10,
     description(info) {
       return `Increase increment by ${info.U1.increment.multiplier}`;
     },
     effect(upgradeInfo, level) {
       upgradeInfo.U1.increment.amount += level;
     },
-    priceFunction(price) {
-      price *= 2;
-      return price;
-    }
+    priceFunction(level) {
+      const newPrice = this.basePrice*Math.pow(1.5, level);
+      return newPrice;
+    },
+    basePrice: 10,
+    baseMaxLevel: 10
   },
   upgrade_2: {
-    maxLevel: 20,
-    description: 'Increase the increment increase from upgrade 1 by 1 per level',
+    description: 'Increase the increment increase from #1 by 1 per level',
     effect(upgradeInfo, level) {
       upgradeInfo.U1.increment.multiplier += level;
     },
-    priceFunction(price) {
-      price *= 2.5;
-      return price;
-    }
+    priceFunction(level) {
+      const newPrice = this.basePrice*Math.pow(2.5, level);
+      return newPrice;
+    },
+    basePrice: 100,
+    baseMaxLevel: 20
   },
   upgrade_3: {
-    maxLevel: 1,
     description: 'Start generating 100% of your increment per second',
     effect(upgradeInfo) {
       upgradeInfo.generatePoints = true;
     },
-    priceFunction(price) {
-      return price;
-    }
+    priceFunction() {
+      return this.basePrice;
+    },
+    basePrice: 1500,
+    baseMaxLevel: 1
   },
   upgrade_4: {
-    maxLevel: 1,
-    description: 'Start generating 50% of your increment per second',
-    effect(upgradeInfo) {
-      upgradeInfo.generatePoints = true;
+    description: "Increase #1's max level by 5",
+    effect(upgradeInfo, level) {
+      upgradeInfo.U4.increaseMaxLevel.levelAmount += 5*level;
     },
-    priceFunction(price) {
-      price *= 2;
-      return price;
-    }
+    priceFunction() {
+      return this.basePrice;
+    },
+    basePrice: 8000,
+    baseMaxLevel: 1
   }
 };

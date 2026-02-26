@@ -1,0 +1,13 @@
+Upgrade ideas:
+
+- Instead of completely hiding maxed upgrades or keeping them constantly visible, grey them out when they're maxed, but keep them where they are. Add an option in a settings tab that lets the user either hide maxed upgrades, move maxed upgrades to the back, or keep them where they are.
+
+- Recalculate the price of an upgrade when the program is run as opposed to saving it. Max level could also be a variable, so save it inside of each upgrade as opposed to having it in upgradeDetails.
+
+- With max level: Don't create any upgrades that are dependent on the max level of any other upgrades. eg: creating an upgrade that increases the increment based on the max level of upgrade 1 should not be allowed.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+General improvements:
+
+- Store derived data (e.g: price, maxLevel, etc.) in a different object. When the program is opened, this data should be calculated as opposed to read. Considering 'increment' in stats is not saved to localStorage, check how increment is being calculated and try to follow a similar structure for calculating prices and maxLevels (keep in mind some upgrades may change the price/maxLevel and whatever else so calculate the effects first, and then calculate prices and such). Anywhere where localStorage.getItem is called is a good starting point.
