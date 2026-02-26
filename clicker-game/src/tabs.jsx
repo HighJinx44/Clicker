@@ -68,25 +68,27 @@ export function Tabs({ counter, setCounter, setStats }) {
     const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgradeDetails[id].priceFunction(upgrade.level)) return;
     if (upgradeDetails[id].baseMaxLevel <= upgrade.level) return;
-    setCounter((prev) => prev - upgradeDetails[id].priceFunction(upgrade.level));
+    setCounter(
+      (prev) => prev - upgradeDetails[id].priceFunction(upgrade.level),
+    );
     setUpgrades((previousUpgrades) => {
       return previousUpgrades.map((previousUpgrade) => {
         if (previousUpgrade.id !== id) return previousUpgrade;
         return {
           id: previousUpgrade.id,
-          level: previousUpgrade.level + 1
+          level: previousUpgrade.level + 1,
         };
       });
     });
   }
-  
+
   const [tabs, setTabs] = useState(initialTabs);
   const activeTab = tabs.find((tab) => tab.active);
 
   const [upgrades, setUpgrades] = useState(
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
-  
+
   const [upgradeInfo, setUpgradeInfo] = useState({
     U1: {
       increment: {
@@ -97,11 +99,11 @@ export function Tabs({ counter, setCounter, setStats }) {
     U4: {
       increaseMaxLevel: {
         upgradeNumber: 1,
-        levelAmount: 0
-      }
-    }
+        levelAmount: 0,
+      },
+    },
   });
-  
+
   useEffect(() => {
     const newStats = {
       increment: 1,
@@ -111,6 +113,12 @@ export function Tabs({ counter, setCounter, setStats }) {
 
     const newUpgradeInfo = {
       generatePoints: false,
+      increment: {
+        U1: {
+          amount: 0,
+          multiplier: 1,
+        },
+      },
       U1: {
         increment: {
           amount: 0,
@@ -120,9 +128,9 @@ export function Tabs({ counter, setCounter, setStats }) {
       U4: {
         increaseMaxLevel: {
           upgradeNumber: 1,
-          levelAmount: 0
-        }
-      }
+          levelAmount: 0,
+        },
+      },
     };
 
     upgrades.forEach((upgrade) => {
@@ -133,14 +141,18 @@ export function Tabs({ counter, setCounter, setStats }) {
 
     for (const key in newUpgradeInfo) {
       const upgradeInfoItem = newUpgradeInfo[key];
-      if (upgradeInfoItem.increment) {
-        newStats.increment +=
-          upgradeInfoItem.increment.amount *
-          upgradeInfoItem.increment.multiplier;
-      }
 
       if (newStats[key] !== undefined) {
-        newStats[key] = upgradeInfoItem;
+        if (key === "increment") {
+          for (const incKey in upgradeInfoItem) {
+            const incrementUpgradeInfoItem = upgradeInfoItem[incKey];
+            newStats.increment +=
+              incrementUpgradeInfoItem.amount *
+              incrementUpgradeInfoItem.multiplier;
+          }
+        } else {
+          newStats[key] = upgradeInfoItem;
+        }
       }
     }
 

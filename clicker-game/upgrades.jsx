@@ -20,26 +20,24 @@ export const defaultUpgrades = [
 export const upgradeDetails = {
   upgrade_1: {
     description(info) {
-      return `Increase increment by ${info.U1.increment.multiplier}`;
+      return `Increase increment by ${info.increment.U1.multiplier}`;
     },
     effect(upgradeInfo, level) {
-      upgradeInfo.U1.increment.amount += level;
+      upgradeInfo.increment.U1.amount = level;
     },
     priceFunction(level) {
-      const newPrice = this.basePrice*Math.pow(1.5, level);
-      return newPrice;
+      return this.basePrice*Math.pow(1.5, level);
     },
     basePrice: 10,
     baseMaxLevel: 10
   },
   upgrade_2: {
-    description: 'Increase the increment increase from #1 by 1 per level',
+    description: 'Increase the increment increase from #1 by 1',
     effect(upgradeInfo, level) {
-      upgradeInfo.U1.increment.multiplier += level;
+      upgradeInfo.increment.U1.multiplier += level;
     },
     priceFunction(level) {
-      const newPrice = this.basePrice*Math.pow(2.5, level);
-      return newPrice;
+      return this.basePrice*Math.pow(2.5, level);
     },
     basePrice: 100,
     baseMaxLevel: 20
