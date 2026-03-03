@@ -108,7 +108,7 @@ export function Tabs({ counter, setCounter, setStats }) {
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
 
-  const [upgradeInfo, setUpgradeInfo] = useState({...defaultUpgradeInfo});
+  const [upgradeInfo, setUpgradeInfo] = useState({ ...defaultUpgradeInfo });
 
   useEffect(() => {
     const newStats = {
@@ -117,8 +117,8 @@ export function Tabs({ counter, setCounter, setStats }) {
       generatePointsPercent: 100,
     };
 
-    const newUpgradeInfo = {...defaultUpgradeInfo};
-    
+    const newUpgradeInfo = { ...defaultUpgradeInfo };
+
     upgrades.forEach((upgrade) => {
       if (upgrade.level > 0) {
         upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
