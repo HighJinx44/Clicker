@@ -15,7 +15,7 @@ export function Clicker({ counter, setCounter, stats }) {
       <div className="counter-container">
         <div className="counter">
           {stats.generatePoints ? <div className="points-per-second">
-            {format((stats.increment/100)*stats.generatePointsPercent)} P/s
+            {format(stats.increment*stats.generatorMultiplier)} P/s
           </div> : ''}
           {format(counter)}</div>
         <button onClick={incrementCounter} className="click-button">

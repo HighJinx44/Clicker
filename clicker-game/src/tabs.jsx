@@ -65,6 +65,7 @@ function FifthTab() {
 
 const defaultUpgradeInfo = {
   generatePoints: false,
+  generatorMultiplier: 1,
   incrementMultiplier: 1,
   increment: {
     U1: {
@@ -73,11 +74,11 @@ const defaultUpgradeInfo = {
     },
   },
   increaseMaxLevel: {
-    upgrade_1: 0,
+    upgrade_4: 0,
   },
 };
 
-export function Tabs({ counter, setCounter, setStats }) {
+export function Tabs({ counter, setCounter, setStats, highestPoints }) {
   function handlePurchase(id) {
     const upgrade = upgrades.find((u) => u.id === id);
     if (counter < upgradeDetails[id].priceFunction(upgrade.level)) return;
@@ -114,14 +115,18 @@ export function Tabs({ counter, setCounter, setStats }) {
     const newStats = {
       increment: 1,
       generatePoints: false,
-      generatePointsPercent: 100,
+      generatorMultiplier: 1,
     };
 
     const newUpgradeInfo = { ...defaultUpgradeInfo };
 
     upgrades.forEach((upgrade) => {
       if (upgrade.level > 0) {
-        upgradeDetails[upgrade.id].effect(newUpgradeInfo, upgrade.level);
+        upgradeDetails[upgrade.id].effect({
+          upgradeInfo: newUpgradeInfo,
+          level: upgrade.level,
+          points: counter,
+        });
       }
     });
 
@@ -145,7 +150,7 @@ export function Tabs({ counter, setCounter, setStats }) {
 
     setUpgradeInfo(newUpgradeInfo);
     setStats(newStats);
-  }, [upgrades, setStats]);
+  }, [upgrades, setStats, counter]);
 
   useEffect(() => {
     localStorage.setItem("upgrades", JSON.stringify(upgrades));
@@ -187,6 +192,7 @@ export function Tabs({ counter, setCounter, setStats }) {
               upgrades={upgrades}
               upgradeInfo={upgradeInfo}
               handlePurchase={handlePurchase}
+              highestPoints={highestPoints}
             />
           )}
         </div>

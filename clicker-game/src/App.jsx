@@ -6,6 +6,7 @@ import './App.css';
 
 function App() {
   const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 0);
+  const [highestPoints, setHighestPoints] = useState(JSON.parse(localStorage.getItem('highestAmount')) || 0);
   const [stats, setStats] = useState({
     increment: 1,
     generatePoints: false,
@@ -14,24 +15,29 @@ function App() {
   
   const incrementRef = useRef(stats.increment);
   const generatePointsRef = useRef(stats.generatePoints);
-  const generatePointsPercentRef = useRef(stats.generatePointsPercent);
+  const generatorMultiplierRef = useRef(stats.generatorMultiplier);
 
 
   useEffect(() => {
     localStorage.setItem('amount', counter);
+    setHighestPoints(prev => Math.max(prev, counter));
   }, [counter]);
+
+  useEffect(() => {
+    localStorage.setItem('highestAmount', highestPoints);
+  }, [highestPoints])
 
   useEffect(() => {
     incrementRef.current = stats.increment;
     generatePointsRef.current = stats.generatePoints;
-    generatePointsPercentRef.current = stats.generatePointsPercent;
+    generatorMultiplierRef.current = stats.generatorMultiplier;
   }, [stats]);
 
   useEffect(() => {
     const generatePointsTimer = setInterval(() => {
       if (!generatePointsRef.current) return;
 
-      setCounter(prev => prev + (incrementRef.current/(100/generatePointsPercentRef.current))/10)
+      setCounter(prev => prev + (incrementRef.current * generatorMultiplierRef.current)/10)
     }, 100);
     return () => clearInterval(generatePointsTimer);
   }, []);
@@ -43,7 +49,7 @@ function App() {
       setCounter={setCounter} 
       stats={stats}
       />
-      <Tabs counter={counter} setCounter={setCounter} setStats={setStats}/>
+      <Tabs counter={counter} setCounter={setCounter} setStats={setStats} highestPoints={highestPoints}/>
     </>
   )
 }

@@ -1,12 +1,12 @@
 Upgrade ideas:
 
-- Instead of completely hiding maxed upgrades or keeping them constantly visible, grey them out when they're maxed, but keep them where they are. Add an option in a settings tab that lets the user either hide maxed upgrades, move maxed upgrades to the back, or keep them where they are.
-
-- Currently, an upgrade is hidden until the user has obtained at least 3/4ths of the cost of the upgrade. Instead of showing no upgrades, change it so that there is a greyed out version of a baseplate upgrade, to show to the user that there is an upgrade that can be unlocked. Perhaps show the minimum quantity that the user needs to get to unlock the upgrade.
-
-- Create a 5th upgrade which doubles the increment.
+- Increase the generator by an amount based on the amount of points (use a formula that increases quickly but slows very quickly)
+  - points^0.15 + 1
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 General improvements:
 
+- Instead of completely hiding maxed upgrades or keeping them constantly visible, grey them out when they're maxed, but keep them where they are. Add an option in a settings tab that lets the user either hide maxed upgrades, move maxed upgrades to the back, or keep them where they are.
+
+- Currently, an upgrade is hidden until the user has obtained at least 3/4ths of the cost of the upgrade. Instead of showing no upgrades, change it so that there is a greyed out version of a baseplate upgrade, to show to the user that there is an upgrade that can be unlocked. Perhaps show the minimum quantity that the user needs to get to unlock the upgrade.

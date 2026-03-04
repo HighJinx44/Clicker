@@ -19,9 +19,9 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border: 2px rgb(0, 92, 0) solid;
   gap: 10px;
   font-size: 20px;
+  position: relative;
 }
 
 .upgrade-desc-container {
@@ -81,4 +81,22 @@
   display: flex;
   justify-content: space-between;
   margin: 0 10px;
+}
+
+.overlay-container {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 80px;
+  justify-content: center;
+  text-align: center;
+}
+
+.overlay-cost-text {
+  font-size: 20px;
+  background-color: black;
 }
