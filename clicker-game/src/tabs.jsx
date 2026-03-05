@@ -3,31 +3,20 @@ import { useState, useEffect } from "react";
 import { FirstUpgrades } from "./Upgrades";
 import { defaultUpgrades, upgradeDetails } from "../upgrades";
 
-const initialTabs = [
+const allTabs = [
   {
-    title: "First",
-    content: FirstUpgrades,
-    active: false,
+    tab: {
+      title: "First",
+      content: FirstUpgrades,
+    },
+    unlockAt: 0,
   },
   {
-    title: "Second",
-    content: SecondTab,
-    active: false,
-  },
-  {
-    title: "Third",
-    content: ThirdTab,
-    active: false,
-  },
-  {
-    title: "Fourth",
-    content: FourthTab,
-    active: false,
-  },
-  {
-    title: "Fifth",
-    content: FifthTab,
-    active: false,
+    tab: {
+      title: "Second",
+      content: SecondTab,
+    },
+    unlockAt: 1000000,
   },
 ];
 
@@ -102,14 +91,27 @@ export function Tabs({ counter, setCounter, setStats, highestPoints }) {
     });
   }
 
-  const [tabs, setTabs] = useState(initialTabs);
-  const activeTab = tabs.find((tab) => tab.active);
+  const [tabs, setTabs] = useState([]);
+  const [activeTabId, setActiveTabId] = useState();
+  const activeTab = tabs.find((tab) => tab.title === activeTabId);
 
   const [upgrades, setUpgrades] = useState(
     JSON.parse(localStorage.getItem("upgrades")) || defaultUpgrades,
   );
 
   const [upgradeInfo, setUpgradeInfo] = useState({ ...defaultUpgradeInfo });
+
+  
+  useEffect(() => {
+    let newTabList = [];
+    allTabs.forEach((tab) => {
+      if (tab.unlockAt <= counter) {
+        newTabList.push(tab.tab);
+      }
+    });
+    setTabs(newTabList);
+  }, [counter]);
+  
 
   useEffect(() => {
     const newStats = {
@@ -165,19 +167,17 @@ export function Tabs({ counter, setCounter, setStats, highestPoints }) {
               <div
                 key={tab.title}
                 className={
-                  tab.active ? "tab-selector selected-tab" : "tab-selector"
+                  tab.title === activeTabId
+                    ? "tab-selector selected-tab"
+                    : "tab-selector"
                 }
                 onClick={() => {
-                  const newTabs = initialTabs.map((oldTab) => {
-                    if (oldTab.title !== tab.title) return oldTab;
-                    return {
-                      title: tab.title,
-                      content: tab.content,
-                      active: !tab.active,
-                    };
+                  setActiveTabId((previousTab) => {
+                    if (previousTab === tab.title) {
+                      return "";
+                    }
+                    return tab.title;
                   });
-
-                  setTabs(newTabs);
                 }}
               >
                 {tab.title}

@@ -2,7 +2,7 @@
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr 1fr;
-  justify-content: space-around;
+  justify-content: center;
   margin: 0 auto;
   margin-top: 50px;
   background-color: rgb(163, 163, 163);
@@ -84,19 +84,35 @@
 }
 
 .overlay-container {
-  position: absolute;
-  inset: 0;
+  height: 300px;
+  width: 200px;
   border-radius: 20px;
-  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  color: white;
-  font-size: 80px;
   justify-content: center;
   text-align: center;
+  color: white;
+  font-size: 80px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgb(15, 15, 15) 0px,
+    rgb(15, 15, 15) 35px,
+    rgb(44, 55, 71) 35px,
+    rgb(44, 55, 71) 70.8px
+  );
+  animation: stripeMove 5s linear infinite;
 }
 
 .overlay-cost-text {
   font-size: 20px;
   background-color: black;
+}
+
+@keyframes stripeMove {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 300px;
+  }
 }

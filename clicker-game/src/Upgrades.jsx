@@ -17,6 +17,10 @@ export function FirstUpgrades({
         //if (counter < (3*upgradeDetails[id].priceFunction(upgrade.level))/4 && upgrade.level === 0) return;
 
         return (
+          locked ? <div key={id} className="overlay-container">
+              <div>?</div>
+              <div className="overlay-cost-text">cost: {format(upgradeDetails[id].priceFunction(upgrade.level))}</div>
+            </div> : 
           upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level ?
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
@@ -53,10 +57,6 @@ export function FirstUpgrades({
                   : "Maxed"}
               </div>
             </div>
-            {locked ? <div className="overlay-container">
-              <div>?</div>
-              <div className="overlay-cost-text">cost: {upgradeDetails[id].priceFunction(upgrade.level)}</div>
-            </div> : ''}
           </div>
           : ''
         );

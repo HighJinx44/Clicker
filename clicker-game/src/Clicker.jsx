@@ -3,21 +3,23 @@ import format from "./utils/formatNumber";
 
 export function Clicker({ counter, setCounter, stats }) {
   function incrementCounter() {
-    setCounter(prev => prev + stats.increment);
-    localStorage.setItem(
-      "amount",
-      JSON.stringify(counter + stats.increment),
-    );
+    setCounter((prev) => prev + stats.increment);
+    localStorage.setItem("amount", JSON.stringify(counter + stats.increment));
   }
 
   return (
     <>
       <div className="counter-container">
         <div className="counter">
-          {stats.generatePoints ? <div className="points-per-second">
-            {format(stats.increment*stats.generatorMultiplier)} P/s
-          </div> : ''}
-          {format(counter)}</div>
+          {stats.generatePoints ? (
+            <div className="points-per-second">
+              {format(stats.increment * stats.generatorMultiplier)} P/s
+            </div>
+          ) : (
+            ""
+          )}
+          {format(counter, 3)}
+        </div>
         <button onClick={incrementCounter} className="click-button">
           +{format(stats.increment)}
         </button>

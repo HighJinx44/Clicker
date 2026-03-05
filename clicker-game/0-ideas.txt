@@ -1,7 +1,7 @@
 Upgrade ideas:
 
-- Increase the generator by an amount based on the amount of points (use a formula that increases quickly but slows very quickly)
-  - points^0.15 + 1
+- Create a 7th upgrade that unlocks leveling
+
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

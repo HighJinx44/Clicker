@@ -10,6 +10,7 @@
   padding-top: 50px;
   position: relative;
   font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
 .points-per-second {

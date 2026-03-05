@@ -16,16 +16,16 @@
   overflow-y: hidden;
   display: flex;
   gap: 10px;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .tab-selector {
   height: 50px;
   flex: 1;
+  max-width: 500px;
   background-color: rgb(1, 202, 1);
   transition: 0.5s ease;
   cursor: pointer;
-  align-content: end;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   border: solid green 4px;
@@ -36,7 +36,6 @@
 
 .tab-selector:not(.selected-tab):hover {
   height: 60px;
-  flex-grow: 1.2;
 }
 
 .selected-tab {
@@ -57,7 +56,6 @@
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  row-gap: 50px;
   justify-items: center;
   margin-top: 50px;
   overflow: hidden;
