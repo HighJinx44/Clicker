@@ -105,12 +105,12 @@ export function Tabs({ counter, setCounter, setStats, highestPoints }) {
   useEffect(() => {
     let newTabList = [];
     allTabs.forEach((tab) => {
-      if (tab.unlockAt <= counter) {
+      if (tab.unlockAt <= highestPoints) {
         newTabList.push(tab.tab);
       }
     });
     setTabs(newTabList);
-  }, [counter]);
+  }, [highestPoints]);
   
 
   useEffect(() => {

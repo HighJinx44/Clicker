@@ -2,16 +2,13 @@
   display: flex;
   flex-direction: column;
   width: 60vw;
-  border: 5px solid black;
-  margin-top: 40px;
-  background-color: rgb(59, 79, 134);
+  margin-top: 10px;
   font-size: 20px;
 }
 
 .tab-selector-container {
   height: 75px;
   width: 100%;
-  border-bottom: 5px solid black;
   align-items: end;
   overflow-y: hidden;
   display: flex;
@@ -22,7 +19,7 @@
 .tab-selector {
   height: 50px;
   flex: 1;
-  max-width: 500px;
+  max-width: 250px;
   background-color: rgb(1, 202, 1);
   transition: 0.5s ease;
   cursor: pointer;
@@ -42,10 +39,6 @@
   height: 71px;
 }
 
-.tab-content-container {
-  height: 700px;
-}
-
 .first-tab {
   background-color: green;
   width: 100%;
@@ -53,10 +46,17 @@
 }
 
 .tab-content-container {
+  border: 5px solid black;
+  border-radius: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  min-height: 38vh; 
+  background-color: rgb(59, 79, 134);
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  row-gap: 20px;
   justify-items: center;
-  margin-top: 50px;
+  align-items: center;
   overflow: hidden;
 }

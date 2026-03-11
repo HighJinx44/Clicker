@@ -1,37 +1,24 @@
-.upgrade-outer-container {
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 50px;
-  background-color: rgb(163, 163, 163);
-  padding: 20px;
-  border-radius: 20px;
-  border: 5px black solid;
-}
-
 .upgrade-container {
-  height: 280px;
-  width: 180px;
+  height: 228px;
+  width: 150px;
   background-color: green;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   padding: 10px;
   gap: 10px;
-  font-size: 20px;
+  font-size: 18px;
   position: relative;
 }
 
 .upgrade-desc-container {
   padding: 5px 10px;
   border-radius: 20px;
-  height: 50%;
+  height: 120px;
   background-color: rgb(0, 92, 0);
   text-align: center;
   color: rgb(255, 255, 255);
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -54,8 +41,8 @@
   color: white;
   border: none;
   border-radius: 14px;
-  padding: 25px;
-  font-size: 20px;
+  padding: 15px;
+  font-size: 18px;
   cursor: pointer;
   transition: 0.05s;
 }
@@ -75,7 +62,6 @@
 }
 
 .upgrade-count {
-  flex-grow: 1;
   color: rgb(0, 53, 0);
   align-items: end;
   display: flex;
@@ -84,8 +70,10 @@
 }
 
 .overlay-container {
-  height: 300px;
-  width: 200px;
+  position: relative;
+  height: 248px;
+  width: 170px;
+  overflow: hidden;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -93,26 +81,52 @@
   text-align: center;
   color: white;
   font-size: 80px;
+  pointer-events: none;
+}
+
+.overlay-background {
+  position: absolute;
+  will-change: auto;
+  inset: 0;
+  width: calc(100% + 99px);
+  height: 100%;
   background: repeating-linear-gradient(
     45deg,
     rgb(15, 15, 15) 0px,
     rgb(15, 15, 15) 35px,
     rgb(44, 55, 71) 35px,
-    rgb(44, 55, 71) 70.8px
+    rgb(44, 55, 71) 70px
   );
-  animation: stripeMove 5s linear infinite;
+  animation: stripeMove 2s linear infinite;
+}
+
+.overlay-text {
+  z-index: 1;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+  animation: textMove 3s ease-in-out infinite;
+  animation-direction: alternate;
 }
 
 .overlay-cost-text {
   font-size: 20px;
+  z-index: 1;
   background-color: black;
+}
+
+@keyframes textMove {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(10px);
+  }
 }
 
 @keyframes stripeMove {
   from {
-    background-position: 0 0;
+    transform: translateX(0);
   }
   to {
-    background-position: 0 300px;
+    transform: translateX(-99px);
   }
 }

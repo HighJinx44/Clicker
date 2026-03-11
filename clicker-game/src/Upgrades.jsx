@@ -13,15 +13,20 @@ export function FirstUpgrades({
     <>
       {upgrades.map((upgrade) => {
         const id = upgrade.id;
-        const locked = (highestPoints < (3*upgradeDetails[id].priceFunction(0))/4);
-        //if (counter < (3*upgradeDetails[id].priceFunction(upgrade.level))/4 && upgrade.level === 0) return;
+        const locked =
+          highestPoints < (3 * upgradeDetails[id].priceFunction(0)) / 4;
 
-        return (
-          locked ? <div key={id} className="overlay-container">
-              <div>?</div>
-              <div className="overlay-cost-text">cost: {format(upgradeDetails[id].priceFunction(upgrade.level))}</div>
-            </div> : 
-          upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level ?
+        return locked ? (
+          <div key={id} className="overlay-container">
+            <div className="overlay-background"></div>
+            <div className="overlay-text">?</div>
+            <div className="overlay-cost-text">
+              cost: {format(upgradeDetails[id].priceFunction(upgrade.level))}
+            </div>
+          </div>
+        ) : upgradeDetails[id].baseMaxLevel +
+            (upgradeInfo.increaseMaxLevel[id] ?? 0) >
+          upgrade.level ? (
           <div key={id} className="upgrade-container">
             <div className="upgrade-desc-container">
               <div className="upgrade-count-container">
@@ -49,16 +54,21 @@ export function FirstUpgrades({
 
             <div className="upgrade-count">
               <div>
-                {upgrade.level}/{upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0)}
+                {upgrade.level}/
+                {upgradeDetails[id].baseMaxLevel +
+                  (upgradeInfo.increaseMaxLevel[id] ?? 0)}
               </div>
               <div>
-                {upgradeDetails[id].baseMaxLevel + (upgradeInfo.increaseMaxLevel[id] ?? 0) > upgrade.level
+                {upgradeDetails[id].baseMaxLevel +
+                  (upgradeInfo.increaseMaxLevel[id] ?? 0) >
+                upgrade.level
                   ? format(upgradeDetails[id].priceFunction(upgrade.level))
                   : "Maxed"}
               </div>
             </div>
           </div>
-          : ''
+        ) : (
+          ""
         );
       })}
     </>

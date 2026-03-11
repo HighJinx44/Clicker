@@ -1,71 +1,36 @@
 body {
   font-family: "Nunito", sans-serif;
+  display: flex;
+  margin: 0;
 }
 
-.container {
-  width: 200px;
-  height: 300px;
-  border-radius: 10px;
+.C1 {
+  flex: 1 0 200px;
+  height: 100vh;
+  align-content: center;
   background-color: green;
-  justify-items: center;
-  padding-top: 10px;
-  position: relative;
 }
 
-.text-container {
-  width: 180px;
-  height: 100px;
-  border-radius: 10px;
-  background-color: limegreen;
-}
-
-.overlay-container {
-  height: 300px;
-  width: 200px;
-  border-radius: 20px;
+.C2 {
+  flex: 0 0 750px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  color: white;
-  font-size: 80px;
-  background: repeating-linear-gradient(
-    45deg,
-    rgb(15, 15, 15) 0px,
-    rgb(15, 15, 15) 30px,
-    rgb(44, 55, 71) 30px,
-    rgba(44, 55, 71) 70.8px
-  );
-  animation: stripeMove 5s linear infinite;
+  background-color: orange;
 }
 
-.overlay-cost-text {
-  font-size: 30px;
-  background-color: rgb(0, 0, 0);
+
+.C2c1 {
+  flex-grow: 1;
+  background-color: rgb(0, 74, 117);
+}
+.C2c2 {
+  height: 750px;
+  background-color: rgb(0, 168, 65);
 }
 
-/*
-.container::after {
-  content: "?";
-  font-family: "Nunito";
-  color: white;
-  font-size: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 200px;
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.6);
-}
-*/
-
-@keyframes stripeMove {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 0 300px;
-  }
+.C3 {
+  flex: 2 0 360px;
+  height: 100vh;
+  background-color: green;
 }

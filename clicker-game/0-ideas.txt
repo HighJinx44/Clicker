@@ -1,7 +1,15 @@
 Upgrade ideas:
 
-- Create a 7th upgrade that unlocks leveling
+- Create an upgrade that...:
+- Multiplies the increment by the amount of digits the number has (e.g: 1,000,000 would multiply the increment by 7)
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+General ideas:
+
+- Leveling (XP is based on total amount of points); Perhaps unlocks when the user first ascends?
+- Have stats shown when the user has no tab selected.
+- Second tab is ascension; follows the formula Ascension Points (AP) = (clicks - 1,000,000)^0.25 + 1
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -9,4 +17,12 @@ General improvements:
 
 - Instead of completely hiding maxed upgrades or keeping them constantly visible, grey them out when they're maxed, but keep them where they are. Add an option in a settings tab that lets the user either hide maxed upgrades, move maxed upgrades to the back, or keep them where they are.
 
-- Currently, an upgrade is hidden until the user has obtained at least 3/4ths of the cost of the upgrade. Instead of showing no upgrades, change it so that there is a greyed out version of a baseplate upgrade, to show to the user that there is an upgrade that can be unlocked. Perhaps show the minimum quantity that the user needs to get to unlock the upgrade.
+- Currently, the formatting of numbers only goes up to 'UDe'. Firstly, increase this greatly. Secondly, make it so that if the user has an amount of points greater than the highest formatting unit, it automatically switches to scientific notation (e.g: 4.28e40 is 4.28 x 10^40).
+
+- When the user changes to a tab, change the background of the tab content container to be a color relevant to the contents of the tab. Optionally, create artwork that will scroll infinitely (like with the overlay background).
+
+- Too much of the screen space is being taken up by the clicker, button and tabs. Decrease the counter size, and make the size of the tab content bigger. Also make the content of the tab scrollable, so that if there's too much content in a tab, it scrolls instead of increasing the size of the website.
+
+- Try to think of a new layout for the website. For instance, have the counter and increment button off to the side, so that the upgrades can take up the entirety of the height of the website. Account for new features, such as leveling.
+
+- Add sounds to all buttons. For instance, for the increment button, add a mouse clicking sound. For the upgrades maybe add a whoosh, cash register or 'level up'-esque sound.

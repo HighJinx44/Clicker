@@ -10,7 +10,7 @@ function App() {
   const [stats, setStats] = useState({
     increment: 1,
     generatePoints: false,
-    generatePointsPercent: 100
+    generatorMultiplier: 1
   });
   
   const incrementRef = useRef(stats.increment);

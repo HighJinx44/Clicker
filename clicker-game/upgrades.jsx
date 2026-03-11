@@ -23,6 +23,10 @@ export const defaultUpgrades = [
     id: "upgrade_6",
     level: 0,
   },
+  {
+    id: "upgrade_7",
+    level: 0,
+  }
 ];
 
 export const upgradeDetails = {
@@ -50,7 +54,7 @@ export const upgradeDetails = {
       return this.basePrice * Math.pow(2.5, level);
     },
     basePrice: 100,
-    baseMaxLevel: 20,
+    baseMaxLevel: 10,
   },
   upgrade_3: {
     description: "Start generating 100% of your increment per second",
@@ -82,18 +86,29 @@ export const upgradeDetails = {
     priceFunction(level) {
       return this.basePrice * Math.pow(5, level);
     },
-    basePrice: 25000,
+    basePrice: 20000,
     baseMaxLevel: 3,
   },
   upgrade_6: {
-    description: "Increase generation based on current clicks (points^0.08)",
+    description: "Increase generation based on current clicks (clicks^0.08)",
     effect({ upgradeInfo, points }) {
       upgradeInfo.generatorMultiplier *= Math.pow(points, 0.08);
     },
     priceFunction() {
       return this.basePrice;
     },
-    basePrice: 30000,
+    basePrice: 35000,
     baseMaxLevel: 1,
   },
+  upgrade_7: {
+    description: "Multiply the increment by the amount of digits in your clicks",
+    effect({upgradeInfo, points}) {
+      upgradeInfo.incrementMultiplier *= Math.floor(Math.abs(points)).toString().length;
+    },
+    priceFunction() {
+      return this.basePrice;
+    },
+    basePrice: 750000,
+    baseMaxLevel: 1,
+  }
 };
