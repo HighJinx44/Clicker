@@ -185,7 +185,7 @@ export function Tabs({ counter, setCounter, setStats, highestPoints }) {
             );
           })}
         </div>
-        <div className="tab-content-container">
+        <div className="tab-content-container selected-tab-content">
           {activeTab && (
             <activeTab.content
               counter={counter}
