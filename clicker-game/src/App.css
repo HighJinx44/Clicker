@@ -2,7 +2,12 @@ body {
   font-family: "Nunito";
   font-size: 60px;
   margin: 0;
-  justify-items: center;
   user-select: none;
+}
+
+.outer-container {
+  display: flex;
+  height: 100vh;
+  min-height: max-content;
 }
 

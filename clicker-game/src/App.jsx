@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Clicker } from './Clicker';
-import './App.css';
 import { Tabs } from './tabs';
+import { Sidebar } from './Sidebar';
+import { MidSec } from './MidSec';
 import './App.css';
 
 function App() {
-  const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 0);
+  const [counter, setCounter] = useState(JSON.parse(localStorage.getItem('amount')) || 100000);
   const [highestPoints, setHighestPoints] = useState(JSON.parse(localStorage.getItem('highestAmount')) || 0);
   const [stats, setStats] = useState({
     increment: 1,
@@ -43,14 +43,15 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Clicker
-      counter={counter}
-      setCounter={setCounter} 
-      stats={stats}
+    <div className='outer-container'>
+      <Sidebar/>
+      <MidSec
+        counter={counter}
+        setCounter={setCounter} 
+        stats={stats}
       />
       <Tabs counter={counter} setCounter={setCounter} setStats={setStats} highestPoints={highestPoints}/>
-    </>
+    </div>
   )
 }
 

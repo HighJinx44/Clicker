@@ -11,14 +11,16 @@ export function Clicker({ counter, setCounter, stats }) {
     <>
       <div className="counter-container">
         <div className="counter">
-          {stats.generatePoints ? (
-            <div className="points-per-second">
-              {format(stats.increment * stats.generatorMultiplier)} P/s
-            </div>
-          ) : (
-            ""
-          )}
-          {format(counter, 3)}
+          <div className="counter-text">
+            {format(counter, 3)}
+            {stats.generatePoints ? (
+              <div className="points-per-second">
+                {format(stats.increment * stats.generatorMultiplier)} P/s
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <button onClick={incrementCounter} className="click-button">
           +{format(stats.increment)}

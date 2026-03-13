@@ -21,8 +21,6 @@ General improvements:
 
 - When the user changes to a tab, change the background of the tab content container to be a color relevant to the contents of the tab. Optionally, create artwork that will scroll infinitely (like with the overlay background).
 
-- Too much of the screen space is being taken up by the clicker, button and tabs. Decrease the counter size, and make the size of the tab content bigger. Also make the content of the tab scrollable, so that if there's too much content in a tab, it scrolls instead of increasing the size of the website.
-
 - Try to think of a new layout for the website. For instance, have the counter and increment button off to the side, so that the upgrades can take up the entirety of the height of the website. Account for new features, such as leveling.
 
 - Add sounds to all buttons. For instance, for the increment button, add a mouse clicking sound. For the upgrades maybe add a whoosh, cash register or 'level up'-esque sound.

@@ -1,0 +1,19 @@
+.middle-section-container {
+  flex: 5;
+  min-width: 500px;
+  display: flex;
+  flex-direction: column;
+  background-color: orange;
+  border-right: 5px solid black;
+}
+
+.top-middle-container {
+  height: 50%;
+  background-color: rgb(0, 74, 117);
+}
+
+.bottom-middle-container {
+  height: 50%;
+  background-color: rgb(0, 168, 65);
+  border-top: 5px solid black;
+}
